@@ -34,8 +34,6 @@ import styles from "./styles";
 
 const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 
-export const TESTCAFE_ID_HEADER_LOGO = "header-banner-logo";
-
 export default function Header() {
   const { session, sessionRequestInProgress } = useSession();
   const bem = useBem(useStyles());
@@ -44,16 +42,7 @@ export default function Header() {
   return (
     <header className={bem("header-banner")}>
       <div className={classes.logoContainer}>
-        <Link href="/">
-          <a data-testid={TESTCAFE_ID_HEADER_LOGO}>
-            <img
-              height={40}
-              src="/inrupt_logo-2020.svg"
-              className={bem("header-banner__logo-image")}
-              alt="Inrupt PodBrowser"
-            />
-          </a>
-        </Link>
+        <h1>Minneapolis Solid Project</h1>
       </div>
 
       <div className={bem("header-banner__main-nav")} />
