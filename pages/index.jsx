@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Demo App</h1>
+      <h1>Demo</h1>
       {session.info.isLoggedIn && <Profile />}
     </div>
   );
