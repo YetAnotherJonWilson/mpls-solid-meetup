@@ -20,6 +20,7 @@
  */
 
 import { useSession } from "@inrupt/solid-ui-react";
+import Link from "next/Link";
 import Profile from "../components/profile";
 
 export default function Home() {
@@ -28,6 +29,10 @@ export default function Home() {
   return (
     <div>
       <h1>Demo</h1>
+      Check out{" "}
+      <Link href="posts/first">
+        <a>the Blog</a>
+      </Link>
       {session.info.isLoggedIn && <Profile />}
     </div>
   );

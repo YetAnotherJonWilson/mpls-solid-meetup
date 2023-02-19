@@ -24,7 +24,7 @@ import { useState } from "react";
 import {
   useSession,
   CombinedDataProvider,
-  Image,
+  Image as InruptImage,
   Text,
 } from "@inrupt/solid-ui-react";
 
@@ -49,6 +49,7 @@ export default function LoginForm() {
   const { session } = useSession();
   const { webId } = session.info;
   const [editing, setEditing] = useState(false);
+  console.log("VCARD object is: ", VCARD)
 
   return (
     <Container fixed>
@@ -60,7 +61,7 @@ export default function LoginForm() {
               display: "flex",
             }}
           >
-            <Image property={VCARD.hasPhoto.iri.value} width={480} />
+            <InruptImage property={VCARD.hasPhoto.iri.value} width={480} />
           </CardActionArea>
 
           <CardContent>

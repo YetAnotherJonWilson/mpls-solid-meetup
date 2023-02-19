@@ -26,7 +26,6 @@ import {
   LinkButton,
 } from "@inrupt/prism-react-components";
 import { useBem } from "@solid/lit-prism-patterns";
-import Link from "next/link";
 
 import { useSession, LogoutButton } from "@inrupt/solid-ui-react";
 import LoginForm from "../loginForm";

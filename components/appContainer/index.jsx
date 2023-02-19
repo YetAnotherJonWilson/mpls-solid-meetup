@@ -32,7 +32,6 @@ import {
   makeStyles,
   StylesProvider,
   ThemeProvider,
-  PageHeader,
   Container,
 } from "@inrupt/prism-react-components";
 
@@ -65,10 +64,6 @@ function AppContainer({ children }) {
             <Nav />
 
             <main className={bem("app-layout__main")}>
-              <PageHeader title={CONFIG.demoTitle} actions={[]}>
-                {CONFIG.demoDescription}
-              </PageHeader>
-
               <Container>{children}</Container>
             </main>
 
