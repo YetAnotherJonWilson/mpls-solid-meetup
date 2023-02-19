@@ -8,5 +8,6 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 0,
     'import/no-unresolved': 0,
     'no-shadow': 0,
+    'prettier/prettier': ['error', { singleQuote: true }],
   },
 };

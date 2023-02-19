@@ -19,11 +19,11 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import React, { Children } from "react";
-import { ServerStyleSheets } from "@material-ui/core/styles";
-import NextDocument, { Html, Head, Main, NextScript } from "next/document";
+import React, { Children } from 'react';
+import { ServerStyleSheets } from '@material-ui/core/styles';
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
 
-import theme from "../src/theme";
+import theme from '../src/theme';
 
 export default class MyDocument extends NextDocument {
   /* eslint class-methods-use-this: 0 */

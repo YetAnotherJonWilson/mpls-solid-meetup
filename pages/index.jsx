@@ -19,9 +19,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useSession } from "@inrupt/solid-ui-react";
-import Link from "next/Link";
-import Profile from "../components/profile";
+import { useSession } from '@inrupt/solid-ui-react';
+import Link from 'next/Link';
+import Profile from '../components/profile';
 
 export default function Home() {
   const { session } = useSession();
@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <div>
       <h1>Demo</h1>
-      Check out{" "}
+      Check out{' '}
       <Link href="posts/first">
         <a>the Blog</a>
       </Link>

@@ -19,14 +19,14 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Link from "next/Link";
+import Link from 'next/Link';
 
 export default function FirstPost() {
   return (
     <div>
       <h1>First Post</h1>
       <p>
-        Go back to{" "}
+        Go back to{' '}
         <Link href="../">
           <a>Home</a>
         </Link>
