@@ -28,9 +28,9 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Demo</h1>
+      <h1>Members</h1>
       Check out{' '}
-      <Link href="posts/first">
+      <Link href="/posts/first">
         <a>the Blog</a>
       </Link>
       {session.info.isLoggedIn && <Profile />}

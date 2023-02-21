@@ -49,11 +49,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { makeStyles, createStyles } from "@inrupt/prism-react-components";
 
 import styles from "./styles";
-
-const useStyles = makeStyles((theme) => createStyles(styles(theme)));
 
 export default function ContactTable({ edit, property }) {
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
@@ -66,7 +63,6 @@ export default function ContactTable({ edit, property }) {
     dataset,
     thing: getThing(dataset, url),
   }));
-  const classes = useStyles();
 
   const saveHandler = async (newThing, datasetToUpdate) => {
     const savedDataset = await saveSolidDatasetAt(
@@ -125,7 +121,7 @@ export default function ContactTable({ edit, property }) {
 
   return (
     <>
-      <Table things={contactDetailThings} className={classes.table}>
+      <Table things={contactDetailThings}>
         <TableColumn
           property={RDF.type.value}
           body={({ value }) => {
@@ -173,7 +169,7 @@ export default function ContactTable({ edit, property }) {
       {edit && (
         <>
           <Typography gutterBottom>Add new contact</Typography>
-          <Box className={classes.newContactFields}>
+          <Box>
             <TextField
               select
               label="Type"

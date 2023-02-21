@@ -20,6 +20,7 @@
  */
 
 import { useEffect } from 'react';
+import Head from 'next/head';
 import AppContainer from '../components/appContainer';
 
 import './styles.css';
@@ -36,9 +37,14 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <AppContainer>
-      <Component {...pageProps} />
-    </AppContainer>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <AppContainer>
+        <Component {...pageProps} />
+      </AppContainer>
+    </>
   );
 }
 

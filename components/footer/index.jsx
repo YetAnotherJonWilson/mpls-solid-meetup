@@ -19,19 +19,17 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { Footer } from "@inrupt/prism-react-components";
-
-import config from "../../config";
+import config from '../../config';
 
 const CONFIG = config();
 
 const footerLinks = [
   {
-    text: "View Demo on GitHub",
+    text: 'View Demo on GitHub',
     href: CONFIG.demoRepoUrl,
   },
   {
-    text: "View Project on GitHub",
+    text: 'View Project on GitHub',
     href: CONFIG.libraryRepoUrl,
   },
 ];
@@ -39,8 +37,8 @@ const footerLinks = [
 const footerTexts = [
   {
     text: CONFIG.copyright,
-    icon: "icon-copyright",
+    icon: 'icon-copyright',
   },
 ];
 
-export default () => <Footer texts={footerTexts} links={footerLinks} />;
+export default () => <div />;

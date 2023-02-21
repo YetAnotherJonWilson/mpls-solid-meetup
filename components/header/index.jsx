@@ -19,50 +19,34 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import React from "react";
-import {
-  createStyles,
-  makeStyles,
-  LinkButton,
-} from "@inrupt/prism-react-components";
-import { useBem } from "@solid/lit-prism-patterns";
-
-import { useSession, LogoutButton } from "@inrupt/solid-ui-react";
-import LoginForm from "../loginForm";
-import styles from "./styles";
-
-const useStyles = makeStyles((theme) => createStyles(styles(theme)));
-
+import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 export default function Header() {
-  const { session, sessionRequestInProgress } = useSession();
-  const bem = useBem(useStyles());
-  const classes = useStyles();
-
   return (
-    <header className={bem("header-banner")}>
-      <div className={classes.logoContainer}>
-        <h1>Minneapolis Solid Project</h1>
-      </div>
-
-      <div className={bem("header-banner__main-nav")} />
-
-      <div className={bem("user-menu")}>
-        {!sessionRequestInProgress && session.info.isLoggedIn && (
-          <LogoutButton
-            onError={console.error}
-            onLogout={() => window.location.reload()}
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
           >
-            <LinkButton
-              variant="small"
-              className={bem("user-menu__list-item-trigger")}
-            >
-              Log Out
-            </LinkButton>
-          </LogoutButton>
-        )}
-
-        {!sessionRequestInProgress && !session.info.isLoggedIn && <LoginForm />}
-      </div>
-    </header>
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Minneapolis Solid Project
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }

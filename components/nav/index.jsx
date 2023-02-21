@@ -19,14 +19,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import {
-  makeStyles,
-  createStyles,
-  MainNav,
-} from '@inrupt/prism-react-components';
-
-import { useBem, appLayout } from '@solid/lit-prism-patterns';
-
+import React from 'react';
 import theme from '../../src/theme';
 
 const navLinks = [
@@ -38,16 +31,8 @@ const navLinks = [
   },
 ];
 
-const useStyles = makeStyles(() => createStyles(appLayout.styles(theme)));
-
 const Nav = () => {
-  const bem = useBem(useStyles());
-
-  return (
-    <div className={bem('app-layout__mobile-nav')}>
-      <MainNav links={navLinks} />;
-    </div>
-  );
+  return <div>Main Nav</div>;
 };
 
 export default Nav;

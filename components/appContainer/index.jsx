@@ -19,61 +19,53 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Set up common Inrupt styling via Prism
-import CssBaseline from "@material-ui/core/CssBaseline";
-
-import { create } from "jss";
-import preset from "jss-preset-default";
-
-import { appLayout, useBem } from "@solid/lit-prism-patterns";
-
+import React, { useState, useEffect } from 'react';
+import preset from 'jss-preset-default';
+import { getPodUrlAll } from '@inrupt/solid-client';
 import {
-  createStyles,
-  makeStyles,
-  StylesProvider,
-  ThemeProvider,
-  Container,
-} from "@inrupt/prism-react-components";
-
-import { SessionProvider } from "@inrupt/solid-ui-react";
-
-import Header from "../header";
-import Nav from "../nav";
-import Footer from "../footer";
-
-import config from "../../config";
-import theme from "../../src/theme";
-
-const CONFIG = config();
-
-const jss = create(preset());
-const useStyles = makeStyles(() => createStyles(appLayout.styles(theme)));
+  handleIncomingRedirect,
+  fetch,
+  getDefaultSession,
+} from '@inrupt/solid-client-authn-browser';
+import Header from '../header';
+import Nav from '../nav';
+import CssBaseline from '@mui/material/CssBaseline';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 /* eslint react/prop-types: 0 */
 function AppContainer({ children }) {
-  const bem = useBem(useStyles());
+  const [loggedIn, setLoggedIn] = useState(false);
+  const session = getDefaultSession();
+
+  // Check if user is logged in and get list of members from mn-solid pod
+  async function checkLogin() {
+    await handleIncomingRedirect({ restorePreviousSession: true }).then(
+      (info) => {
+        console.log(`Logged in with WebID ${info?.webId}`);
+      }
+    );
+    if (session.info.isLoggedIn) {
+      setLoggedIn(true);
+    }
+    const mnSolidPods = await getPodUrlAll(
+      'https://mnsolidproject.solidcommunity.net/profile/card#me',
+      { fetch }
+    );
+    console.log('mnSolidPods', mnSolidPods);
+  }
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
-    <SessionProvider>
-      <StylesProvider jss={jss}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-
-          <div className={bem("app-layout")}>
-            <Header />
-            <Nav />
-
-            <main className={bem("app-layout__main")}>
-              <Container>{children}</Container>
-            </main>
-
-            <Footer />
-
-            <div className={bem("app-layout__mobile-nav-push")} />
-          </div>
-        </ThemeProvider>
-      </StylesProvider>
-    </SessionProvider>
+    <CssBaseline>
+      <Header />
+      <main>{children}</main>
+    </CssBaseline>
   );
 }
 

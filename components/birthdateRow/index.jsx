@@ -18,26 +18,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { useContext } from "react";
+import { useContext } from 'react';
 import {
   useThing,
   useSession,
   Value,
   DatasetContext,
-} from "@inrupt/solid-ui-react";
-import { makeStyles, createStyles } from "@inrupt/prism-react-components";
-import { Button } from "@material-ui/core";
+} from '@inrupt/solid-ui-react';
+import { Button } from '@material-ui/core';
 import {
   getDatetime,
   getSourceUrl,
   removeDatetime,
   saveSolidDatasetAt,
   setThing,
-} from "@inrupt/solid-client";
-import { VCARD } from "@inrupt/lit-generated-vocab-common";
-import styles from "./styles";
-
-const useStyles = makeStyles((theme) => createStyles(styles(theme)));
+} from '@inrupt/solid-client';
+import { VCARD } from '@inrupt/lit-generated-vocab-common';
+import styles from './styles';
 
 export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
@@ -45,7 +42,6 @@ export default function BirthdateRow({ edit, setEdit }) {
   const { fetchSession } = useSession();
   const { thing } = useThing(datasetUrl);
   const birthdate = thing && getDatetime(thing, VCARD.bday);
-  const classes = useStyles();
 
   async function removeBirthdate() {
     const newProfile = setThing(
@@ -59,20 +55,16 @@ export default function BirthdateRow({ edit, setEdit }) {
   }
 
   return edit || birthdate ? (
-    <span className={classes.birthdateRowWrapper}>
+    <span>
       <Value
         property={VCARD.bday}
         dataType="datetime"
-        inputProps={{ name: "birthdate-input" }}
+        inputProps={{ name: 'birthdate-input' }}
         edit={edit}
         autosave
       />
       {birthdate && !edit && (
-        <Button
-          color="secondary"
-          onClick={() => removeBirthdate()}
-          className={classes.deleteButton}
-        >
+        <Button color="secondary" onClick={() => removeBirthdate()}>
           Delete
         </Button>
       )}
