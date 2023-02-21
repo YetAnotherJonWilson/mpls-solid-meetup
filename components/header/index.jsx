@@ -27,7 +27,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-export default function Header() {
+import { performLogin, performLogout } from '../../utils';
+export default function Header({ loggedIn }) {
+  console.log(loggedIn);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -44,7 +46,39 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Minneapolis Solid Project
           </Typography>
-          <Button color="inherit">Login</Button>
+          {(loggedIn == undefined || loggedIn === '') && (
+            <>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  performLogin();
+                }}
+              >
+                Login
+              </Button>
+              <Button
+                color="inherit"
+                href="https://solidproject.org/users/get-a-pod"
+              >
+                Get a Solid Pod
+              </Button>
+            </>
+          )}
+          {loggedIn !== '' && loggedIn != undefined && (
+            <>
+              <Typography variant="subtitle1">
+                Logged in with webId: {loggedIn}
+              </Typography>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  performLogout();
+                }}
+              >
+                Log Out
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

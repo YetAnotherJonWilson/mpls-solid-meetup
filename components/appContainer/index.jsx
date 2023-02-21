@@ -54,6 +54,7 @@ import '@fontsource/roboto/700.css';
 /* eslint react/prop-types: 0 */
 function AppContainer({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [webId, setWebId] = useState('');
   const session = getDefaultSession();
 
   // Check if user is logged in and get list of members from mn-solid pod
@@ -61,10 +62,16 @@ function AppContainer({ children }) {
     await handleIncomingRedirect({ restorePreviousSession: true }).then(
       (info) => {
         console.log(`Logged in with WebID ${info?.webId}`);
+        setWebId(info?.webId);
       }
     );
     if (session.info.isLoggedIn) {
       setLoggedIn(true);
+      if (typeof session.info.webId === 'string') {
+        const mypods = await getPodUrlAll(session.info.webId, { fetch });
+        // const newContainer = `${mypods[0]}periodTracker`;
+        // await createContainerAt(newContainer, { fetch });
+      }
     }
     const mnSolidPods = await getPodUrlAll(
       'https://mnsolidproject.solidcommunity.net/profile/card#me'
@@ -87,7 +94,7 @@ function AppContainer({ children }) {
 
   return (
     <CssBaseline>
-      <Header />
+      <Header loggedIn={webId} />
       <main>{children}</main>
     </CssBaseline>
   );
