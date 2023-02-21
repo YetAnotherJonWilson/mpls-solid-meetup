@@ -19,7 +19,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import Link from 'next/Link';
+import Link from 'next/link';
 
 export default function FirstPost() {
   return (

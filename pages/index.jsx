@@ -21,7 +21,7 @@
 
 import React from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
-import Link from 'next/Link';
+import Link from 'next/link';
 import Profile from '../components/profile';
 import Container from '@mui/material/Container';
 
