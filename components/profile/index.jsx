@@ -19,15 +19,17 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
 import {
-  useSession,
-  CombinedDataProvider,
-  Image as InruptImage,
-  Text,
-} from "@inrupt/solid-ui-react";
-
+  getFile,
+  getProfileAll,
+  getSolidDataset,
+  getThing,
+  getThingAll,
+  getStringNoLocale,
+  getUrlAll,
+} from '@inrupt/solid-client';
 import {
   Button,
   Card,
@@ -36,97 +38,52 @@ import {
   CardContent,
   Container,
   Typography,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
-import BusinessIcon from "@material-ui/icons/Business";
+import { FOAF, VCARD } from '@inrupt/lit-generated-vocab-common';
 
-import { FOAF, VCARD } from "@inrupt/lit-generated-vocab-common";
-
-import ContactTable from "../contactTable";
-import BirthdateRow from "../birthdateRow";
-
-export default function LoginForm() {
-  const { session } = useSession();
-  const { webId } = session.info;
+export default function Profile() {
   const [editing, setEditing] = useState(false);
-  console.log("VCARD object is: ", VCARD)
+  const [profile, setProfile] = useState({});
+  const [picture, setPicture] = useState('');
+  const [name, setName] = useState('');
+  // console.log('VCARD object is: ', VCARD);
+
+  async function getProfile() {
+    const profile = await getProfileAll(
+      'https://jonwilson.solidcommunity.net/profile/card#me'
+    );
+    console.log('Profile is: ', profile);
+    const webIDProfileSolidDataset = profile.webIdProfile;
+    const webIdThing = getThing(
+      webIDProfileSolidDataset,
+      'https://jonwilson.solidcommunity.net/profile/card#me'
+    );
+    console.log('webIDProfileSolidDataset: ', webIDProfileSolidDataset);
+    console.log('webIdThing: ', webIdThing);
+    console.log(
+      'picture',
+      webIdThing.predicates['http://www.w3.org/2006/vcard/ns#hasPhoto']
+        .namedNodes
+    );
+    setPicture(
+      webIdThing.predicates['http://www.w3.org/2006/vcard/ns#hasPhoto']
+        .namedNodes
+    );
+    setName(
+      webIdThing.predicates['http://www.w3.org/2006/vcard/ns#fn'].literals[
+        'http://www.w3.org/2001/XMLSchema#string'
+      ]
+    );
+  }
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
-    <Container fixed>
-      <CombinedDataProvider datasetUrl={webId} thingUrl={webId}>
-        <Card style={{ maxWidth: 480 }}>
-          <CardActionArea
-            style={{
-              justifyContent: "center",
-              display: "flex",
-            }}
-          >
-            <InruptImage property={VCARD.hasPhoto.iri.value} width={480} />
-          </CardActionArea>
-
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              <Text property={FOAF.name.iri.value} edit={editing} autosave />
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <BusinessIcon />
-
-              <Text
-                property={VCARD.organization_name.iri.value}
-                edit={editing}
-                autosave
-              />
-            </Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              style={{
-                display: "flex",
-                alignItems: "baseline",
-              }}
-            >
-              <label htmlFor="birthdate-input">Born:&nbsp;</label>
-              <BirthdateRow edit={editing} setEdit={setEditing} />
-            </Typography>
-          </CardContent>
-
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h3">
-              Email Addresses
-            </Typography>
-
-            <ContactTable property={VCARD.hasEmail.value} edit={editing} />
-          </CardContent>
-
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h3">
-              Phone Numbers
-            </Typography>
-
-            <ContactTable property={VCARD.hasTelephone.value} edit={editing} />
-          </CardContent>
-
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => setEditing(!editing)}
-            >
-              Toggle Edit
-            </Button>
-          </CardActions>
-        </Card>
-      </CombinedDataProvider>
-    </Container>
+    <>
+      <img src={picture} alt="profile image" width="200" />
+      <p>{name}</p>
+    </>
   );
 }

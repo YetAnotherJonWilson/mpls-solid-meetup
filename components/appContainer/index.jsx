@@ -21,7 +21,23 @@
 
 import React, { useState, useEffect } from 'react';
 import preset from 'jss-preset-default';
-import { getPodUrlAll } from '@inrupt/solid-client';
+import {
+  addUrl,
+  addStringNoLocale,
+  buildThing,
+  createSolidDataset,
+  createThing,
+  getFile,
+  getPodUrlAll,
+  getSolidDataset,
+  getThing,
+  getThingAll,
+  getStringNoLocale,
+  getUrlAll,
+  saveSolidDatasetAt,
+  setThing,
+} from '@inrupt/solid-client';
+import { SCHEMA_INRUPT } from '@inrupt/vocab-common-rdf';
 import {
   handleIncomingRedirect,
   fetch,
@@ -51,10 +67,18 @@ function AppContainer({ children }) {
       setLoggedIn(true);
     }
     const mnSolidPods = await getPodUrlAll(
-      'https://mnsolidproject.solidcommunity.net/profile/card#me',
-      { fetch }
+      'https://mnsolidproject.solidcommunity.net/profile/card#me'
     );
     console.log('mnSolidPods', mnSolidPods);
+    const myDataset = await getSolidDataset(
+      'https://mnsolidproject.solidcommunity.net/public/'
+    );
+    console.log('myDataset', myDataset);
+    const membersList = await getFile(
+      'https://mnsolidproject.solidcommunity.net/public/members.json'
+    );
+    const membersText = await membersList.text();
+    console.log('members', membersText);
   }
 
   useEffect(() => {

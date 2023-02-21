@@ -19,21 +19,19 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import React from 'react';
 import { useSession } from '@inrupt/solid-ui-react';
 import Link from 'next/Link';
 import Profile from '../components/profile';
+import Container from '@mui/material/Container';
 
 export default function Home() {
   const { session } = useSession();
 
   return (
-    <div>
+    <Container fixed>
       <h1>Members</h1>
-      Check out{' '}
-      <Link href="/posts/first">
-        <a>the Blog</a>
-      </Link>
-      {session.info.isLoggedIn && <Profile />}
-    </div>
+      <Profile />
+    </Container>
   );
 }
