@@ -18,6 +18,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 import { useContext } from 'react';
 import {
   useThing,
@@ -34,7 +35,6 @@ import {
   setThing,
 } from '@inrupt/solid-client';
 import { VCARD } from '@inrupt/lit-generated-vocab-common';
-import styles from './styles';
 
 export default function BirthdateRow({ edit, setEdit }) {
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);

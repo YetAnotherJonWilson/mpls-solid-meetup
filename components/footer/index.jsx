@@ -41,4 +41,6 @@ const footerTexts = [
   },
 ];
 
-export default () => <div />;
+export default function Footer() {
+  return <div />;
+}

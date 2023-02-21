@@ -22,7 +22,6 @@
 import { useState, useEffect } from 'react';
 import { LoginButton } from '@inrupt/solid-ui-react';
 import { useBem } from '@solid/lit-prism-patterns';
-import styles from './styles';
 import config from '../../config';
 
 const CONFIG = config();

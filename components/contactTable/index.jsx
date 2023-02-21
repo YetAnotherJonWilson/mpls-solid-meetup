@@ -19,9 +19,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import { useContext, useState } from "react";
-import { RDF, VCARD } from "@inrupt/lit-generated-vocab-common";
-import { getLocalStore, LitTermRegistry } from "@solid/lit-term";
+import { useContext, useState } from 'react';
+import { RDF, VCARD } from '@inrupt/lit-generated-vocab-common';
+import { getLocalStore, LitTermRegistry } from '@solid/lit-term';
 import {
   addUrl,
   asUrl,
@@ -33,7 +33,7 @@ import {
   saveSolidDatasetAt,
   setThing,
   setUrl,
-} from "@inrupt/solid-client";
+} from '@inrupt/solid-client';
 import {
   DatasetContext,
   Table,
@@ -41,20 +41,18 @@ import {
   useSession,
   useThing,
   Value,
-} from "@inrupt/solid-ui-react";
+} from '@inrupt/solid-ui-react';
 import {
   Box,
   Button,
   MenuItem,
   TextField,
   Typography,
-} from "@material-ui/core";
-
-import styles from "./styles";
+} from '@material-ui/core';
 
 export default function ContactTable({ edit, property }) {
   const [newContactType, setNewContactType] = useState(VCARD.Home.value);
-  const [newContactValue, setNewContactValue] = useState("");
+  const [newContactValue, setNewContactValue] = useState('');
   const { fetchSession } = useSession();
   const { solidDataset: dataset, setDataset } = useContext(DatasetContext);
   const { thing: profile } = useThing();
@@ -74,7 +72,7 @@ export default function ContactTable({ edit, property }) {
   };
 
   const addContactDetail = async () => {
-    const prefix = property === VCARD.hasTelephone.value ? "tel:" : "mailto:";
+    const prefix = property === VCARD.hasTelephone.value ? 'tel:' : 'mailto:';
     const newContactDetail = setUrl(createThing(), RDF.type, newContactType);
     const newContactDetailWithValue = setUrl(
       newContactDetail,
@@ -126,8 +124,8 @@ export default function ContactTable({ edit, property }) {
           property={RDF.type.value}
           body={({ value }) => {
             const termRegistry = new LitTermRegistry(getLocalStore());
-            const label = termRegistry.lookupLabel(value, "en");
-            const comment = termRegistry.lookupComment(value, "en");
+            const label = termRegistry.lookupLabel(value, 'en');
+            const comment = termRegistry.lookupComment(value, 'en');
             return <Typography title={comment}>{label || value}</Typography>;
           }}
           dataType="url"
