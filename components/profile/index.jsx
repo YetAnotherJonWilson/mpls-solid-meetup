@@ -82,8 +82,14 @@ export default function Profile() {
 
   return (
     <>
-      <img src={picture} alt="profile image" width="200" />
-      <p>{name}</p>
+      {picture === '' ||
+        (name === '' && <Typography variant="h5">Loading</Typography>)}
+      {picture !== '' && name !== '' && (
+        <>
+          <img src={picture} alt="profile image" width="200" />
+          <p>{name}</p>
+        </>
+      )}
     </>
   );
 }
